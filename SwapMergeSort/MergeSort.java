@@ -9,8 +9,8 @@ public class MergeSort {
 	public static void sort(final int[] list) {
 		if (!multOf2(list.length))
 			System.out.println("This sorting alg is only for multiples of 2");
-		else
-			mergeSort(list, 0, list.length - 1);
+		
+		mergeSort(list, 0, largestMultiple2(list.length) - 1);
 	}
 	
 	private static void mergeSort(final int[] list, final int start, final int end) {
@@ -21,7 +21,11 @@ public class MergeSort {
 	}
 	
 	private static boolean multOf2(final int value) {
-		return (largestMultiple2(value, 2) == value);
+		return (largestMultiple2(value) == value);
+	}
+	
+	private static int largestMultiple2(final int n) {
+		return largestMultiple2(n, 2);
 	}
 	
 	private static int largestMultiple2(final int n, final int largest) {
@@ -35,8 +39,7 @@ public class MergeSort {
 		bitonicMerge(list, start, end);
 	}
 	
-	private static void bitonicMerge(final int[] list, final int start, 
-													   final int end) {
+	private static void bitonicMerge(final int[] list, final int start, final int end) {
 		if (start >= end) return; //1 element is sorted
 		swapWithHalf(list, start, half(start, end) + 1);
 		bitonicMerge(list, start, half(start, end));
@@ -47,13 +50,11 @@ public class MergeSort {
 		return (start + end) / 2;
 	}
 	
-	private static void swapWithHalf(final int[] list, final int start, 
-													   final int end) {
+	private static void swapWithHalf(final int[] list, final int start, final int end) {
 		swapWithHalf(list, start, end, end - start);
 	}
 
-	private static void swapWithHalf(final int[] list, final int start, 
-									 final int end, final int i) {
+	private static void swapWithHalf(final int[] list, final int start, final int end, final int i) {
 		if (i <= 0) return;
 		swapIfBigger(list, start, end);
 		swapWithHalf(list, start + 1, end + 1, i - 1);
@@ -65,8 +66,7 @@ public class MergeSort {
 		reverse(list, start + 1, end - 1);
 	}
 	
-	private static void swapIfBigger(final int[] list, final int index1, 
-													   final int index2) {
+	private static void swapIfBigger(final int[] list, final int index1, final int index2) {
 		if (list[index1] > list[index2])
 			swap(list, index1, index2);
 	}
